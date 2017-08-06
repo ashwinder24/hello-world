@@ -1,29 +1,39 @@
+/*
+   Implement a Blackjack hand value calculator.
 
-let container = document.querySelector(".container");
+   Open up the `index.html` file and your console
+   to watch the assertions pass as you write your code.
 
-for (i=0; i < customers.results.length; i++){
-  let cust  = document.createElement("div");
-   let first = customers.results[i].name.first;
-   let last = customers.results[i].name.last;
-    let email = customers.results[i].email;
-    let Street = customers.results[i].location.street;
-    let city = customers.results[i].location.city;
-    let state = customers.results[i].location.state;
-    let postcode = customers.results[i].location.postcode;
-    let mobile = customers.results[i].phone;
-    let ss = customers.results[i].id.value;
-    cust.innerHTML = `
-    <article>
-<img src="${customers.results[i].picture.large}">
-<h3>${first} ${last}</h3>
-<p>${email}</p>
-<p>${Street}</p>
-<p>${city} ${state} ${postcode}</p>
-<p>${mobile}</p>
-<p>${ss}</p>
+   Also remember, that the parameter `hand` will be an array, so
+   you'll need to parse through that first before you can start to
+   write your logic.
+*/
+function handValue (hand) {
+  let total = 0;
+  for (var i = 0; i < hand.length; i++) {
+    if (hand[i] === "K" || hand[i] ==="Q" || hand[i] ==="J"){
+      total = total + 10;
 
-</article>
-  `;
-
-container.appendChild(cust);
+    }
+    else if ( hand[i] === "A" ){
+      if ( total <= 10){
+        total = total + 11;
+      }
+      else{
+        total = total + 1;
+      }
+    }
+    else {
+      total += Number(hand[i]);
+    }
+  }
+  return total;
 }
+console.log(handValue(["2", "2", "8"]));
+/* -----  Hints ------
+
+1..10   ==> Worth face value (1 = 1, 4 = 4, etc)
+K, Q, J ==> Worth 10
+A       ==> Worth 1 or 11
+
+*/
